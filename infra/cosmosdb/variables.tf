@@ -1,0 +1,12 @@
+variable "resource_group_name" { type = string }
+variable "location" { type = string }
+variable "dbname" { type = string }
+variable "nameconv" { type = string }
+variable "max_throughput" { type = string }
+variable "partition_key_path" { type = string }
+variable "indexing_mode" { type = string }
+variable "consistency_level" { type = string }
+variable "offer_type" { type = string }
+variable "sql_container_name" { type = string }
+variable "kind" { type = string }
+variable "akv_id" { type = string }

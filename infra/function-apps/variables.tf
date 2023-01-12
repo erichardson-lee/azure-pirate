@@ -1,0 +1,15 @@
+variable "name" { type = string }
+variable "location" { type = string }
+variable "resource_group_name" { type = string }
+variable "account_tier" { type = string }
+variable "account_replication_type" { type = string }
+variable "os_type" { type = string }
+variable "sku_name" { type = string }
+variable "nameconv" { type = string }
+variable "abbr" { type = string }
+variable "app_insights_key" { type = string }
+variable "app_insights_cs" { type = string }
+variable "akv_id" { type = string }
+variable "vault_name" { type = string }
+variable "az_tenant_id" { type = string }
+variable "app_settings" { type = map(any) }

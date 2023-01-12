@@ -1,0 +1,43 @@
+# Exceptions and Traces
+
+traces 
+| where customDimensions['LogLevel'] == 'Critical' or customDimensions['LogLevel'] == 'Error' 
+| union exceptions 
+| where operation_Name != "" 
+| where timestamp > ago(15m) 
+| order by timestamp desc 
+| project timestamp, itemType, operation_Name, cloud_RoleName, outerMessage, message, customDimensions, details 
+
+# Failed Requests
+
+requests
+| where timestamp > ago(15m)
+| where success == 'False'
+| project name, success, timestamp, duration
+| order by timestamp desc
+
+traces 
+| where customDimensions['LogLevel'] == 'Warning'
+| where timestamp > ago(15m) 
+| order by timestamp desc 
+| project timestamp, itemType, operation_Name, cloud_RoleName, message
+
+
+
+traces
+| where timestamp > ago(3d)
+and message contains "Sent tweet"
+| order by timestamp asc
+| project timestamp, message
+
+
+traces
+| where timestamp > ago(3d)
+// | where timestamp >= datetime(2022-01-22)
+// | where timestamp >= datetime(2022-01-21) and timestamp < datetime(2022-01-23) 
+// | where operation_Name == "FeedChecker"
+// | where customDimensions['LogLevel'] == 'Warning'
+// | where message contains "New blog post" 
+and message contains "John Kilmister"
+| order by timestamp asc
+| project timestamp, message

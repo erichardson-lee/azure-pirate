@@ -1,0 +1,6 @@
+# Do not include azure-functions-worker as it may conflict with the Azure Functions platform
+
+azure-functions==1.8.0
+tweepy==4.3.0
+requests==2.22.0
+azure-servicebus==7.4.0

@@ -1,0 +1,34 @@
+name: feed-azpirate
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+    paths:
+      - feed-azpirate/**
+      - .github/workflows/feed-azpirate.yml
+  workflow_dispatch:
+
+env:
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: './feed-azpirate'
+
+defaults:
+  run:
+    working-directory: './feed-azpirate'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@v2
+
+      - name: 'Run Azure Functions Action'
+        uses: Azure/functions-action@v1
+        id: fa
+        with:
+          app-name: feed-azpirate
+          slot-name: 'Production'
+          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          publish-profile: ${{ secrets.FEEDFA_PUBLISH_PROFILE }}
