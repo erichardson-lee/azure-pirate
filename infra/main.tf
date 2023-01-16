@@ -62,34 +62,6 @@ module "appinsights" {
   nameconv            = local.nameconv
 }
 
-module "blog-function-apps" {
-  source                   = "./function-apps"
-  name                     = "blog"
-  nameconv                 = local.nameconv
-  abbr                     = local.abbr
-  location                 = var.location
-  resource_group_name      = azurerm_resource_group.rsg.name
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-  os_type                  = "Linux"
-  sku_name                 = "Y1"
-  app_insights_key         = module.appinsights.app_insights_key
-  app_insights_cs          = module.appinsights.app_insights_cs
-  az_tenant_id             = var.az_tenant_id
-  akv_id                   = module.keyvault.akv_id
-  vault_name               = module.keyvault.vault_name
-  app_settings = {
-    "FUNCTIONS_EXTENSION_VERSION" = "~4",
-    "FUNCTIONS_WORKER_RUNTIME"    = "powershell"
-    "FUNCTIONS_WORKER_RUNTIME_VERSION" = "~7"
-    "powerShellVersion" = "~7"
-  }
-  depends_on = [
-    module.keyvault,
-    module.appinsights
-  ]
-}
-
 module "feeds-function-apps" {
   source                   = "./function-apps"
   name                     = "feed"
@@ -120,7 +92,6 @@ module "feeds-function-apps" {
     "CosmosAccountKey"                = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.cosmosdb.key})",
     "ServiceBusQueueConnstr" = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.servicebus.servicebus-queue-connstr})",
     "ShortURLFuncKey"                 = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.keyvault.shorturlfunckey})"
-    "BlogFuncKey"                     = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.blog-function-apps.host_key_name})"
   }
   depends_on = [
     module.keyvault,
