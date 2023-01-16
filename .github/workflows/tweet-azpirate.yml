@@ -3,7 +3,6 @@ name: tweet-azpirate
 on:
   push:
     branches:
-      - dev
       - main
     paths:
       - tweet-azpirate/**
