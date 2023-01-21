@@ -16,7 +16,7 @@ function Submit-TwitterMsg {
         -ApiKey $ApiKey `
         -ApiSecret $ApiSecret `
         -AccessToken $AccessToken `
-        -AccessTokenSecret $AccessTokenSecret | Out-Null
+        -AccessTokenSecret $AccessTokenSecret # | Out-Null
     
     if ($Message -match 'youtube.com')
     {
