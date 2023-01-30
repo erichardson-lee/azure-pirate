@@ -50,14 +50,25 @@ function New-Greeting {
 
     $greeting = $greetings | Get-Random
 
-    if ($title -eq "NA")
+    if ($handle -eq "@azure_projects_")
     {
-        $message = "$($greeting)`n`nNew $($type) post from $($handle)!`n`nCheck it out it here: $($sUrl)`n`n#Azure #AzureFamily #CloudFamily #AzurePirate"
+        $message = "$($greeting)`n`nA new project idea has been released over on AZURE PROJECTS!`n`nCheck it out it here: $($sUrl)`n`n#Azure #CloudFamily #AzurePirate #AzureProjects"
     }
-    else 
+    else
     {
-       $message = "$($greeting)`n`nNew $($type) post from $($handle) called: $($title)`n`nCheck it out it here: $($sUrl)`n`n#Azure #AzureFamily #CloudFamily #AzurePirate"
+        if ($title -eq "NA")
+        {
+            $message = "$($greeting)`n`nNew $($type) post from $($handle)!`n`nCheck it out it here: $($sUrl)`n`n#Azure #AzureFamily #CloudFamily #AzurePirate"
+        }
+        else 
+        {
+            $message = "$($greeting)`n`nNew $($type) post from $($handle) called: $($title)`n`nCheck it out it here: $($sUrl)`n`n#Azure #AzureFamily #CloudFamily #AzurePirate"
+        }
     }
+
+    
+
+   
 
     if ([string]$message.Length -gt 276) {
         return "Yarr! New $($type) post from $($handle)'.`n`nCheck it out it here: $($sUrl)"
