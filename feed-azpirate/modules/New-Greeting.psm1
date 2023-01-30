@@ -52,7 +52,11 @@ function New-Greeting {
 
     if ($handle -eq "@azure_projects_")
     {
-        $message = "$($greeting)`n`nA new project idea has been released over on AZURE PROJECTS!`n`nCheck it out it here: $($sUrl)`n`n#Azure #CloudFamily #AzurePirate #AzureProjects"
+        $message = "Ahoy!`n`nAZURE PROJECTS has a new post called: $($title)`n`nCheck it out it here: $($sUrl)`n`n#Azure #CloudFamily"
+        if ([string]$message.Length -gt 276) {
+            $message = "Ahoy!`n`nAZURE PROJECTS has a new post!`n`nCheck it out it here: $($sUrl)`n`n#Azure #CloudFamily"
+        }
+        return $message
     }
     else
     {
@@ -64,19 +68,13 @@ function New-Greeting {
         {
             $message = "$($greeting)`n`nNew $($type) post from $($handle) called: $($title)`n`nCheck it out it here: $($sUrl)`n`n#Azure #AzureFamily #CloudFamily #AzurePirate"
         }
+
+        if ([string]$message.Length -gt 276) {
+            return "Yarr! New $($type) post from $($handle)'.`n`nCheck it out it here: $($sUrl)"
+        } else {
+            return $message
+        }
     }
-
-    
-
-   
-
-    if ([string]$message.Length -gt 276) {
-        return "Yarr! New $($type) post from $($handle)'.`n`nCheck it out it here: $($sUrl)"
-    } else {
-        return $message
-    }
-
-
 }
 
 Export-ModuleMember -Function New-Greeting
