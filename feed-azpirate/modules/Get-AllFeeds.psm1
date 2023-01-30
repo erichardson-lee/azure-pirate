@@ -26,7 +26,7 @@ function Get-AllFeeds {
     }
     catch
     {
-        Write-Warning "Could not connect to $($name)'s feed: $($feed). Error: $($_) Skipping..."
+        Write-Warning "Could not connect to $($name)'s feed: $($feed). Skipping..."
         return
     }
     
