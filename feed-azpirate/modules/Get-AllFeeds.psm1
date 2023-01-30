@@ -36,6 +36,7 @@ function Get-AllFeeds {
 
     ForEach ($post in $posts) 
     {
+
         # get post date
         if ($post.PubDate) { $date = $post.PubDate }
         elseif ($post.published) { $date = $post.published }
@@ -85,11 +86,17 @@ function Get-AllFeeds {
         $title = $title.Trim().Replace('“','"').Replace('”','"') # nice and tidy title
 
         # get the post link
-        if ($post.link.getType().Name -ne 'String') { $link = $post.id } else { $link = $post.link }
-
-        if ($feed -match 'youtube.com') { $link = "https://www.youtube.com/watch?v=$($post.videoId)" }
-
-        if (!$link) { Write-Warning "Could not get the link for this post. Skipping..."; continue  }
+        if ($feed -match 'youtube.com')
+        { 
+            $link = "https://www.youtube.com/watch?v=$($post.videoId)" 
+        }
+        else
+        {
+            if ($post.link -match "http"){ $link = $post.link }
+            elseif ($post.link.href -match "http") { $link = $post.link.href }
+            elseif ($post.id -match "http") { $link = $post.id }
+            else { Write-Warning "Could not get post link. Skipping..."; continue }
+        }
 
         # clean up string for DB entry
         try 
@@ -166,7 +173,7 @@ function Get-AllFeeds {
                     greeting = $greeting;
                 }
 
-                Write-Warning ">>> CREATING A NEW ENTRY:`n$($greeting)."
+                Write-Host ">>> CREATING A NEW ENTRY:`n$($greeting)."
 
                 try
                 {
