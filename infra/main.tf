@@ -132,3 +132,35 @@ module "tweet-function-apps" {
     module.servicebus
   ]
 }
+
+module "apis-function-apps" {
+  source                   = "./function-apps"
+  name                     = "api"
+  nameconv                 = local.nameconv
+  abbr                     = local.abbr
+  location                 = var.location
+  resource_group_name      = azurerm_resource_group.rsg.name
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+  os_type                  = "Linux"
+  sku_name                 = "Y1"
+  app_insights_key         = module.appinsights.app_insights_key
+  app_insights_cs          = module.appinsights.app_insights_cs
+  az_tenant_id             = var.az_tenant_id
+  akv_id                   = module.keyvault.akv_id
+  vault_name               = module.keyvault.vault_name
+  app_settings = {
+    "FUNCTIONS_EXTENSION_VERSION" = "~4",
+    "FUNCTIONS_WORKER_RUNTIME"    = "powershell"
+    "FUNCTIONS_WORKER_RUNTIME_VERSION" = "~7"
+    "powerShellVersion" = "~7"
+    "CosmosAccountName"               = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.cosmosdb.cosmosacc})",
+    "CosmosDBName"                    = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.cosmosdb.db})",
+    "CosmosCollectionName"            = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.cosmosdb.container})",
+    "CosmosAccountKey"                = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.cosmosdb.key})",
+  }
+  depends_on = [
+    module.keyvault,
+    module.cosmosdb
+  ]
+}

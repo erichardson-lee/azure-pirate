@@ -26,7 +26,7 @@ function Get-AllFeeds {
     }
     catch
     {
-        Write-Warning "Could not connect to $($name)'s feed: $($feed). Status: $($scv). Skipping..."
+        Write-Warning "Could not connect to $($name)'s feed: $($feed). Skipping..."
         return
     }
     
@@ -167,9 +167,10 @@ function Get-AllFeeds {
                     date = $postDateFmt;
                     author = $authorCleaned;
                     handle = $handle;
+                    title = $title;
                     titleCleaned = $titleCleaned;
                     url = $sUrl;
-                    origUrl = $postURL;
+                    origUrl = $link;
                     greeting = $greeting;
                 }
 
