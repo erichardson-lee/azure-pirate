@@ -173,3 +173,77 @@ $filtered | select handle, date, url, title | ConvertTo-Json
 # #     Write-Host "Working with $($count) items"
 
 # # }
+
+
+
+
+
+# https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/manage-with-powershell
+
+$subscriptionName = "Visual Studio Enterprise Subscription - MCT"
+
+Connect-AzAccount -Subscription $subscriptionName
+
+$resourceGroupName = "myResourceGroup"
+$location = "UK South"
+$accountName = "mycosmosaccount"
+$apiKind = "Sql"
+$databaseName = "mydatabase"
+$containerName = "mycontainer"
+$partitionKeyPath = "/id"
+$throughput = 400 #minimum = 400
+
+New-AzResourceGroup -Name $resourceGroupName -Location $location
+
+New-AzCosmosDBAccount `
+    -Name $accountName `
+    -ResourceGroupName $resourceGroupName `
+    -Location $location `
+    -ApiKind $apiKind
+
+New-AzCosmosDBSqlDatabase `
+    -ResourceGroupName $resourceGroupName `
+    -AccountName $accountName `
+    -Name $databaseName    
+    
+New-AzCosmosDBSqlContainer `
+    -ResourceGroupName $resourceGroupName `
+    -AccountName $accountName `
+    -DatabaseName $databaseName `
+    -Name $containerName `
+    -PartitionKeyKind Hash `
+    -PartitionKeyPath $partitionKeyPath `
+    -Throughput $throughput
+
+$key = (Get-AzCosmosDBAccountKey `
+    -ResourceGroupName $resourceGroupName `
+    -Name $accountName `
+    -Type "Keys").PrimaryMasterKey
+
+$requiredPSModules = "Az", "CosmosDB"
+
+ForEach ($module in $requiredPSModules)
+{
+    if (-not(Get-Module -ListAvailable -Name $module)) {
+        Install-Module $module
+        Import-Module $module # Might not be needed
+    }
+}
+
+$document = [ordered]@{
+    id           = "$([Guid]::NewGuid().ToString())";
+    name         = "Dan";
+    location     = "Ripon";
+}
+
+0..9 | Foreach-Object {
+    $id = $([Guid]::NewGuid().ToString())
+    $document = @"
+{
+    `"id`": `"$id`",
+    `"content`": `"Some string`",
+    `"more`": `"Some other string`"
+}
+"@
+    New-CosmosDbDocument -Context $cosmosDbContext -CollectionId $containerName -DocumentBody $document -PartitionKey $id
+}
