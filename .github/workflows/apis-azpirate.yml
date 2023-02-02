@@ -28,7 +28,7 @@ jobs:
         uses: Azure/functions-action@v1
         id: fa
         with:
-          app-name: apis-azpirate
+          app-name: api-azpirate
           slot-name: 'Production'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           publish-profile: ${{ secrets.APISFA_PUBLISH_PROFILE }}
