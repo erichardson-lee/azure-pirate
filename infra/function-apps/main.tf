@@ -48,6 +48,7 @@ resource "azurerm_linux_function_app" "function" {
   site_config {
     http2_enabled     = true
     use_32_bit_worker = false
+    always_on         = var.always_on
     application_stack {
       powershell_core_version = 7.2
     }

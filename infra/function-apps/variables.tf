@@ -11,5 +11,6 @@ variable "app_insights_key" { type = string }
 variable "app_insights_cs" { type = string }
 variable "akv_id" { type = string }
 variable "vault_name" { type = string }
+variable "always_on" { type = string }
 variable "az_tenant_id" { type = string }
 variable "app_settings" { type = map(any) }

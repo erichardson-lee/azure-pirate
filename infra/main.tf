@@ -78,20 +78,21 @@ module "feeds-function-apps" {
   az_tenant_id             = var.az_tenant_id
   akv_id                   = module.keyvault.akv_id
   vault_name               = module.keyvault.vault_name
+  always_on                = false
   app_settings = {
-    "FUNCTIONS_EXTENSION_VERSION" = "~4",
-    "FUNCTIONS_WORKER_RUNTIME"    = "powershell"
+    "FUNCTIONS_EXTENSION_VERSION"      = "~4",
+    "FUNCTIONS_WORKER_RUNTIME"         = "powershell"
     "FUNCTIONS_WORKER_RUNTIME_VERSION" = "~7"
-    "powerShellVersion" = "~7"
-    "hoursBack"                       = "-48",
-    "localDataFile"                   = "////home////data////feeds.csv"
-    "localTesting"                    = "false"
-    "CosmosAccountName"               = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.cosmosdb.cosmosacc})",
-    "CosmosDBName"                    = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.cosmosdb.db})",
-    "CosmosCollectionName"            = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.cosmosdb.container})",
-    "CosmosAccountKey"                = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.cosmosdb.key})",
-    "ServiceBusQueueConnstr" = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.servicebus.servicebus-queue-connstr})",
-    "ShortURLFuncKey"                 = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.keyvault.shorturlfunckey})"
+    "powerShellVersion"                = "~7"
+    "hoursBack"                        = "-48",
+    "localDataFile"                    = "////home////data////feeds.csv"
+    "localTesting"                     = "false"
+    "CosmosAccountName"                = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.cosmosdb.cosmosacc})",
+    "CosmosDBName"                     = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.cosmosdb.db})",
+    "CosmosCollectionName"             = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.cosmosdb.container})",
+    "CosmosAccountKey"                 = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.cosmosdb.key})",
+    "ServiceBusQueueConnstr"           = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.servicebus.servicebus-queue-connstr})",
+    "ShortURLFuncKey"                  = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.keyvault.shorturlfunckey})"
   }
   depends_on = [
     module.keyvault,
@@ -115,17 +116,18 @@ module "tweet-function-apps" {
   az_tenant_id             = var.az_tenant_id
   akv_id                   = module.keyvault.akv_id
   vault_name               = module.keyvault.vault_name
+  always_on                = false
   app_settings = {
-    "FUNCTIONS_EXTENSION_VERSION" = "~4",
-    "FUNCTIONS_WORKER_RUNTIME"    = "powershell"
+    "FUNCTIONS_EXTENSION_VERSION"      = "~4",
+    "FUNCTIONS_WORKER_RUNTIME"         = "powershell"
     "FUNCTIONS_WORKER_RUNTIME_VERSION" = "~7"
-    "powerShellVersion" = "~7"
-    "localDataFile" = "////home////data////sddefault.jpg"
-    "SbusConnStr" = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.servicebus.servicebus-queue-connstr})",
-    "TwitterAccessToken" = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.keyvault.twitteraccesstoken})",
-    "TwitterAccessTokensecret" = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.keyvault.twitteraccesstokensecret})",
-    "TwitterApiKey" = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.keyvault.twitterapikey})",
-    "TwitterApiSecret" = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.keyvault.twitterapisecret})"
+    "powerShellVersion"                = "~7"
+    "localDataFile"                    = "////home////data////sddefault.jpg"
+    "SbusConnStr"                      = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.servicebus.servicebus-queue-connstr})",
+    "TwitterAccessToken"               = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.keyvault.twitteraccesstoken})",
+    "TwitterAccessTokensecret"         = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.keyvault.twitteraccesstokensecret})",
+    "TwitterApiKey"                    = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.keyvault.twitterapikey})",
+    "TwitterApiSecret"                 = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.keyvault.twitterapisecret})"
   }
   depends_on = [
     module.keyvault,
@@ -143,21 +145,22 @@ module "apis-function-apps" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
   os_type                  = "Linux"
-  sku_name                 = "Y1"
+  sku_name                 = "P1v2"
   app_insights_key         = module.appinsights.app_insights_key
   app_insights_cs          = module.appinsights.app_insights_cs
   az_tenant_id             = var.az_tenant_id
   akv_id                   = module.keyvault.akv_id
   vault_name               = module.keyvault.vault_name
+  always_on                = true
   app_settings = {
-    "FUNCTIONS_EXTENSION_VERSION" = "~4",
-    "FUNCTIONS_WORKER_RUNTIME"    = "powershell"
+    "FUNCTIONS_EXTENSION_VERSION"      = "~4",
+    "FUNCTIONS_WORKER_RUNTIME"         = "powershell"
     "FUNCTIONS_WORKER_RUNTIME_VERSION" = "~7"
-    "powerShellVersion" = "~7"
-    "CosmosAccountName"               = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.cosmosdb.cosmosacc})",
-    "CosmosDBName"                    = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.cosmosdb.db})",
-    "CosmosCollectionName"            = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.cosmosdb.container})",
-    "CosmosAccountKey"                = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.cosmosdb.key})",
+    "powerShellVersion"                = "~7"
+    "CosmosAccountName"                = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.cosmosdb.cosmosacc})",
+    "CosmosDBName"                     = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.cosmosdb.db})",
+    "CosmosCollectionName"             = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.cosmosdb.container})",
+    "CosmosAccountKey"                 = "@Microsoft.KeyVault(VaultName=${module.keyvault.vault_name};SecretName=${module.cosmosdb.key})",
   }
   depends_on = [
     module.keyvault,
