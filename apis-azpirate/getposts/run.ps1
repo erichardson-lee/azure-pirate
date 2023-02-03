@@ -4,14 +4,14 @@ using namespace System.Net
 param($Request, $TriggerMetadata)
 
 $fileName = "posts.json"
-$outPath = "D:\home\$($fileName)"
-# $outPath = "C:\Users\danm\Git\azure-pirate\apis-azpirate\getpoststimer\$($fileName)"
+$outPath = "/home/data/$($fileName)"
 $ContainerName = "posts"
 
 $Context = New-AzStorageContext -ConnectionString $env:AzureWebJobsStorage
 
-$getData = Get-AzStorageBlob -Blob $fileName -Container $ContainerName -Context $Context
-$data = $getData.ICloudBlob.DownloadText()
+Get-AzStorageBlobContent -Container $ContainerName -Blob $fileName -Context $Context -Destination $outPath -Force
+$data = Get-Content -Path $outPath | ConvertFrom-Json
+Remove-Item $outPath -Force
 
 # Associate values to output bindings by calling 'Push-OutputBinding'.
 Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{

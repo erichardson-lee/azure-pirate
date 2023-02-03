@@ -46,8 +46,7 @@ if ($record)
 }
 
 $fileName = "posts.json"
-$outPath = "D:\home\$($fileName)"
-# $outPath = "C:\Users\danm\Git\azure-pirate\apis-azpirate\getpoststimer\$($fileName)"
+$outPath = "/home/data/$($fileName)"
 $ContainerName = "posts"
 
 $filtered | select title, handle, date, url | ConvertTo-Json | Out-File $outPath -Force
