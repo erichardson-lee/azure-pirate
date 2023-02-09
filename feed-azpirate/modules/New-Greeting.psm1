@@ -46,7 +46,11 @@ function New-Greeting {
         "Aaaarrrrgggghhhh!",
         "Aye Aye!",
         "Blow me down!",
-        "Heave Ho!"
+        "Heave Ho!",
+        "Batten down the hatches!",
+        "Land Ho!",
+        "Abandon Ship!",
+        "Fire in the hole!"
 
     $greeting = $greetings | Get-Random
 
