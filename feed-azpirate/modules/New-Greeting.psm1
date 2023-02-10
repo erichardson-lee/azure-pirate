@@ -30,7 +30,6 @@ function New-Greeting {
         "Abandon Ship!"
         "Ahoy Landlubber!"
         "Ahoy Me Hearties!"
-        "Ahoy Me Hearties!"
         "Ahoy Thar Swashbuckler!"
         "Ahoy!"
         "Avast Ye Scallywag!"
@@ -42,15 +41,12 @@ function New-Greeting {
         "Blow me down!"
         "Fire in the hole!"
         "Heave Ho!"
-        "Heave Ho!"
         "Hit The Deck!"
         "Land Ho!"
         "Shiver Me Timbers!"
         "Thar She Blows!"
         "Walk The Plank!"
-        "Walk The Plank!"
         "Yarr!"
-        "Yo Ho Ho!"
         "Yo Ho Ho!"
     )
 
