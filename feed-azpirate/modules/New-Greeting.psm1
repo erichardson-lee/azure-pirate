@@ -25,28 +25,30 @@ function New-Greeting {
         $type = "blog"
     }
 
-    $greetings = "Yarr!", 
-        "Ahoy!", 
-        "Aye, Aye Captain!", 
-        "Avast Ye!", 
-        "Shiver Me Timbers!", 
-        "Yo Ho Ho!", 
-        "Walk The Plank!", 
-        "Ahoy Me Hearties!",
-        "Blimey!",
-        "Heave Ho!",
-        "Ahoy Landlubber!",
-        "Thar She Blows!",
-        "Hit The Deck!",
-        "Yo Ho Ho!",
-        "Avast Ye Scallywag!",
-        "Walk The Plank!",
-        "Ahoy Me Hearties!",
-        "Ahoy Thar Swashbuckler!",
-        "Aaaarrrrgggghhhh!",
-        "Aye Aye!",
-        "Blow me down!",
+    $greetings = @(
+        "Aaaarrrrgggghhhh!"
+        "Abandon Ship!"
+        "Ahoy Landlubber!"
+        "Ahoy Me Hearties!"
+        "Ahoy Thar Swashbuckler!"
+        "Ahoy!"
+        "Avast Ye Scallywag!"
+        "Avast Ye!"
+        "Aye Aye!"
+        "Aye, Aye Captain!"
+        "Batten down the hatches!"
+        "Blimey!"
+        "Blow me down!"
+        "Fire in the hole!"
         "Heave Ho!"
+        "Hit The Deck!"
+        "Land Ho!"
+        "Shiver Me Timbers!"
+        "Thar She Blows!"
+        "Walk The Plank!"
+        "Yarr!"
+        "Yo Ho Ho!"
+    )
 
     $greeting = $greetings | Get-Random
 
