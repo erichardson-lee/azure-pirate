@@ -114,7 +114,7 @@ function Get-AllFeeds {
         {
             $SecureKey = ConvertTo-SecureString $env:CosmosAccountKey -AsPlainText -Force
             $cosmosDbContext = New-CosmosDbContext -Account $env:CosmosAccountName -Database $env:CosmosDBName -Key $SecureKey
-            $query = "SELECT * FROM logs c WHERE (c.author = '$($authorCleaned)') AND (c.titleCleaned = '$($titleCleaned)')"
+            $query = "SELECT * FROM logs c WHERE (c.handle = '$($handle)') AND (c.titleCleaned = '$($titleCleaned)')"
             $record = Get-CosmosDbDocument -Context $cosmosDbContext -CollectionId $env:CosmosCollectionName -Query $query -QueryEnableCrossPartition $True
             Write-Verbose "DB query: $($query)"
         }
