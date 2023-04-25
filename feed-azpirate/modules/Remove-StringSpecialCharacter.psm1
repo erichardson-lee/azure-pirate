@@ -68,7 +68,7 @@ function Remove-StringSpecialCharacter {
 
             FOREACH ($Str in $string) {
                 Write-Verbose -Message "Original String: $Str"
-                $Str -replace $regex, "" -replace "å","a"
+                $Str -replace $regex, "" -replace "å","a" -replace "á","a"
             }
         }
         catch {
