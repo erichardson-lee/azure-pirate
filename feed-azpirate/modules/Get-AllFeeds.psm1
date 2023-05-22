@@ -101,8 +101,8 @@ function Get-AllFeeds {
         # clean up string for DB entry
         try 
         {
-            $authorCleaned = Remove-StringSpecialCharacter -String $name
-            $titleCleaned = Remove-StringSpecialCharacter -String $title
+            $authorCleaned = Remove-NonAlphaNumericCharacters -InputString $name
+            $titleCleaned = Remove-NonAlphaNumericCharacters -InputString $title
         }
         catch
         {
@@ -154,6 +154,7 @@ function Get-AllFeeds {
                 
                 try 
                 {
+                    # Test-ForeignCharacters
                     $greeting = New-Greeting -author $name -title $title -sUrl $sUrl -handle $handle
                 }
                 catch
@@ -162,7 +163,7 @@ function Get-AllFeeds {
                     exit
                 }
         
-                $hash = [ordered]@{
+                $document = [ordered]@{
                     id = "$([Guid]::NewGuid().ToString())";
                     date = $postDateFmt;
                     author = $authorCleaned;
@@ -172,15 +173,14 @@ function Get-AllFeeds {
                     url = $sUrl;
                     origUrl = $link;
                     greeting = $greeting;
-                }
+                } | ConvertTo-Json
 
                 Write-Host ">>> CREATING A NEW ENTRY:`n$($greeting)."
 
                 try
                 {
                     Write-Host "Record does not yet exist. Creating..."
-                    $message = $hash | ConvertTo-Json -Depth 4
-                    $doc = New-CosmosDbDocument -Context $cosmosDbContext -CollectionId $env:CosmosCollectionName -DocumentBody $message -PartitionKey $postDateFmt
+                    $doc = New-CosmosDbDocument -Context $cosmosDbContext -CollectionId $env:CosmosCollectionName -DocumentBody $document -Encoding 'UTF-8' -PartitionKey $postDateFmt
                     Write-Host "Record created."
 
                 }

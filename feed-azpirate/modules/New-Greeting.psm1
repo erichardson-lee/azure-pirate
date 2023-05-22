@@ -62,11 +62,14 @@ function New-Greeting {
     }
     else
     {
-        if ($title -eq "NA")
+        # check for Foreign Character
+        $charCheck = Test-ForeignCharacters -InputString $title
+
+        if ($title -eq "NA" -or $charCheck -eq $true)
         {
             $message = "$($greeting)`n`nNew $($type) post from $($handle)!`n`nCheck it out it here: $($sUrl)`n`n#Azure #AzureFamily #CloudFamily #AzurePirate"
         }
-        else 
+        else
         {
             $message = "$($greeting)`n`nNew $($type) post from $($handle) called: $($title)`n`nCheck it out it here: $($sUrl)`n`n#Azure #AzureFamily #CloudFamily #AzurePirate"
         }

@@ -13,12 +13,24 @@ Set-TwitterAuthentication `
     -AccessToken $AccessToken `
     -AccessTokenSecret $AccessTokenSecret
 
-$PathToImage = "C:\Users\danm\Downloads\pirate.jpg"
-$MediaId = (Send-TwitterMedia -Path $PathToImage -Category TweetImage -AltImageText 'A Pirate').media_id
+$msg = "Ahoy Thar Swashbuckler!
 
-Publish-Tweet `
- -TweetText "Just making sure I can post images with the v2 Twitter API" `
- -MediaId $MediaId
+New blog post from @ndteknik called: Azure Triumphs – S01E06 – Johan Åhlén & Magnus Mårtensson (livepod)
+
+Check it out it here: https://url.azurepirate.com/s4e
+
+#Azure #AzureFamily #CloudFamily #AzurePirate"
+
+$msg
+
+Publish-Tweet -TweetText $msg
+
+# $PathToImage = "C:\Users\danm\Downloads\pirate.jpg"
+# $MediaId = (Send-TwitterMedia -Path $PathToImage -Category TweetImage -AltImageText 'A Pirate').media_id
+
+# Publish-Tweet `
+#  -TweetText "Just making sure I can post images with the v2 Twitter API" `
+#  -MediaId $MediaId
 
 
 #  Publish-Tweet -TweetText "A new release of #BluebirdPS will soon be released. BluebirdPS is #PowerShell 7 Twitter automation client. Check it out! https://bit.ly/BluebirdPS"

@@ -2,17 +2,17 @@
 <#
 .EXTERNALHELP CosmosDB-help.xml
 #>
-#Requires -Version 5.1
-#Requires -Modules @{ ModuleName = 'Az.Accounts'; ModuleVersion = '1.0.0'; Guid = '17a2feff-488b-47f9-8729-e2cec094624c' }
-#Requires -Modules @{ ModuleName = 'Az.Resources'; ModuleVersion = '1.0.0'; Guid = '48bb344d-4c24-441e-8ea0-589947784700' }
+# Requires -Version 5.1
+# Requires -Modules @{ ModuleName = 'Az.Accounts'; ModuleVersion = '1.0.0'; Guid = '17a2feff-488b-47f9-8729-e2cec094624c' }
+# Requires -Modules @{ ModuleName = 'Az.Resources'; ModuleVersion = '1.0.0'; Guid = '48bb344d-4c24-441e-8ea0-589947784700' }
 
 $script:moduleRoot = Split-Path `
     -Path $MyInvocation.MyCommand.Path `
     -Parent
 
-# Import dependent Az modules
-Import-Module -Name Az.Accounts -MinimumVersion 1.0.0 -Scope Global
-Import-Module -Name Az.Resources -MinimumVersion 1.0.0 -Scope Global
+# # Import dependent Az modules
+# Import-Module -Name Az.Accounts -MinimumVersion 1.0.0 -Scope Global
+# Import-Module -Name Az.Resources -MinimumVersion 1.0.0 -Scope Global
 
 #region LocalizedData
 $culture = $PSUICulture
